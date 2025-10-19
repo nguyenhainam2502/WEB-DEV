@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Travel Planner Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="nav__logo">Travel Planner</div>
+    <nav class="nav__links">
+      <a href="#plan">Lập kế hoạch</a>
+      <a href="#itinerary">Lịch trình</a>
+      <a href="#nearby">Gần tôi</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- STEP 0: ENTRY (hiển thị đầu tiên) -->
+    <section id="entry" class="card entry">
+    <h2>Bạn đã có địa điểm chưa?</h2>
+
+    <div class="entry__grid">
+        <button class="entry__option" data-mode="has" type="button">
+        <h3>✅ Có tôi đã có địa điểm mong muốn</h3>
+        <p class="muted">Chọn tỉnh/thành cụ thể ở bước sau.</p>
+        </button>
+
+        <button class="entry__option" data-mode="no" type="button">
+        <h3>❓ Chưa tôi chưa biết phải đi đâu</h3>
+        <p class="muted">Mình sẽ gợi ý theo hình thức du lịch bạn thích.</p>
+        </button>
+    </div>
+
+    <p class="muted" style="margin-top:10px;">* Bạn có thể đổi lựa chọn ở bước sau nếu muốn.</p>
+    </section>
+
+    <!-- STEP 1: THÔNG TIN CHUYẾN ĐI (ẩn lúc đầu) -->
+    <section id="plan" class="card" hidden>
+      <h2>Thông tin chuyến đi</h2>
+      <form id="plannerForm" class="form">
+        <div class="form__row">
+          <label>Ngân sách (VND)</label>
+          <input type="number" id="budget" placeholder="Ví dụ 5,000,000" min="0" required />
+        </div>
+        <div class="form__row">
+          <label>Số người</label>
+          <input type="number" id="people" min="1" value="2" required />
+        </div>
+        <div class="form__row">
+          <label>Số ngày</label>
+          <input type="number" id="days" min="1" value="3" required />
+        </div>
+
+        <!-- radio đã đổi text theo yêu cầu -->
+        <fieldset class="form__row">
+          <legend>Bạn đã có tỉnh/thành chưa?</legend>
+          <label><input type="radio" name="mode" value="has" checked /> Có tôi đã có địa điểm mong muốn</label>
+          <label><input type="radio" name="mode" value="no" /> Chưa tôi chưa biết phải đi đâu</label>
+        </fieldset>
+
+        <div class="form__row" id="destRow">
+          <label>Chọn tỉnh/thành</label>
+          <select id="destination"></select>
+        </div>
+
+        <div class="form__row" id="styleRow" hidden>
+          <label>Hình thức du lịch (chọn 1–2)</label>
+          <div class="chips">
+            <label><input type="checkbox" value="sinh_thai"/> Sinh thái</label>
+            <label><input type="checkbox" value="am_thuc"/> Ẩm thực</label>
+            <label><input type="checkbox" value="bien"/> Biển</label>
+            <label><input type="checkbox" value="van_hoa"/> Văn hoá - lịch sử</label>
+            <label><input type="checkbox" value="nghi_duong"/> Nghỉ dưỡng</label>
+          </div>
+        </div>
+
+        <div class="form__row">
+          <label>Mục đích chính</label>
+          <div class="chips">
+            <label><input type="checkbox" class="purpose" value="sightseeing" checked/> Tham quan</label>
+            <label><input type="checkbox" class="purpose" value="relax"/> Nghỉ dưỡng</label>
+            <label><input type="checkbox" class="purpose" value="foodie"/> Ăn uống</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn">Tạo lịch trình</button>
+      </form>
+      <p class="hint">* Demo offline, dữ liệu gợi ý dùng mẫu có sẵn. Có thể kết nối API thật sau.</p>
+    </section>
+
+    <!-- STEP 2: ĐỀ XUẤT / LỊCH TRÌNH (ẩn lúc đầu) -->
+    <section id="itinerary" class="card" hidden>
+      <h2>Lịch trình đề xuất</h2>
+      <div id="summary"></div>
+      <ol id="itineraryList" class="itinerary"></ol>
+      <div id="safety" class="safety"></div>
+      <div id="traffic" class="traffic"></div>
+
+      <details>
+        <summary>Góp ý sau lịch trình (feedback)</summary>
+        <form id="feedbackForm" class="form">
+          <div class="form__row">
+            <label>Mức độ phù hợp</label>
+            <select id="fbScore">
+              <option value="5">⭐️⭐️⭐️⭐️⭐️ Rất hợp</option>
+              <option value="4">⭐️⭐️⭐️⭐️ Khá hợp</option>
+              <option value="3">⭐️⭐️⭐️ Trung bình</option>
+              <option value="2">⭐️⭐️ Chưa hợp</option>
+              <option value="1">⭐️ Rất không hợp</option>
+            </select>
+          </div>
+          <div class="form__row">
+            <label>Ghi chú</label>
+            <textarea id="fbNote" rows="3" placeholder="Bạn thích/không thích điều gì?"></textarea>
+          </div>
+          <button class="btn" type="submit">Lưu feedback</button>
+        </form>
+        <div id="fbSaved" class="muted"></div>
+      </details>
+    </section>
+
+    <!-- NEARBY giữ nguyên, vẫn hiện (có thể ẩn nếu muốn) -->
+    <section id="nearby" class="card">
+      <h2>Gần vị trí hiện tại</h2>
+      <p class="muted">Bật định vị để xem các điểm gần bạn (danh lam, ăn uống, v.v.).</p>
+      <button id="locateBtn" class="btn btn-outline">Lấy vị trí & gợi ý gần tôi</button>
+      <ul id="nearbyList" class="nearby"></ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Travel Planner Demo — Bản thử nghiệm.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
