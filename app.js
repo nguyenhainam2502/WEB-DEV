@@ -353,3 +353,28 @@ feedbackForm.addEventListener("submit", (e) => {
   fbSaved.textContent = "Đã lưu phản hồi. Lần sau sẽ ưu tiên gợi ý phù hợp hơn.";
   document.getElementById("fbNote").value = "";
 });
+// ---- Auto format số tiền trong ô ngân sách ----
+const budgetInput = document.getElementById("budget");
+
+if (budgetInput) {
+  budgetInput.addEventListener("input", (e) => {
+    // Giữ vị trí con trỏ
+    const cursor = e.target.selectionStart;
+    const value = e.target.value.replace(/\D/g, ""); // bỏ ký tự không phải số
+    if (!value) {
+      e.target.value = "";
+      return;
+    }
+    // Format theo kiểu Việt Nam
+    const formatted = Number(value).toLocaleString("vi-VN");
+    e.target.value = formatted;
+    // Đưa con trỏ về cuối
+    e.target.setSelectionRange(formatted.length, formatted.length);
+  });
+
+  // Khi submit cần chuyển về số nguyên để tính toán
+  plannerForm.addEventListener("submit", () => {
+    const raw = budgetInput.value.replace(/\D/g, ""); // "4,000,000" -> "4000000"
+    budgetInput.value = raw;
+  });
+}
