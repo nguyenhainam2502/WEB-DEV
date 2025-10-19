@@ -18,23 +18,40 @@
 
   <main class="container">
     <!-- STEP 0: ENTRY (hiển thị đầu tiên) -->
-    <section id="entry" class="card entry">
-    <h2>Bạn đã có địa điểm chưa?</h2>
+<section id="entry" class="card entry">
+  <h2>Bạn đã có địa điểm chưa?</h2>
 
-    <div class="entry__grid">
+  <!-- 2 cột ngang hàng -->
+  <div class="entry__layout">
+    <!-- CỘT TRÁI: 2 lựa chọn -->
+    <div class="entry__left">
+      <div class="entry__grid">
         <button class="entry__option" data-mode="has" type="button">
-        <h3>✅ Có tôi đã có địa điểm mong muốn</h3>
-        <p class="muted">Chọn tỉnh/thành cụ thể ở bước sau.</p>
+          <h3>✅ Có tôi đã có địa điểm mong muốn</h3>
+          <p class="muted">Chọn tỉnh/thành cụ thể ở bước sau.</p>
         </button>
 
         <button class="entry__option" data-mode="no" type="button">
-        <h3>❓ Chưa tôi chưa biết phải đi đâu</h3>
-        <p class="muted">Mình sẽ gợi ý theo hình thức du lịch bạn thích.</p>
+          <h3>❓ Chưa tôi chưa biết phải đi đâu</h3>
+          <p class="muted">Mình sẽ gợi ý theo hình thức du lịch bạn thích.</p>
         </button>
+      </div>
+      <p class="muted" style="margin-top:10px;">* Bạn có thể đổi lựa chọn ở bước sau nếu muốn.</p>
     </div>
 
-    <p class="muted" style="margin-top:10px;">* Bạn có thể đổi lựa chọn ở bước sau nếu muốn.</p>
-    </section>
+    <!-- CỘT PHẢI: CAROUSEL QUẢNG CÁO -->
+    <aside class="entry__ads">
+      <div class="carousel" aria-label="Quảng cáo du lịch">
+        <div class="carousel__viewport"></div>
+        <button class="carousel__nav prev" aria-label="Ảnh trước">‹</button>
+        <button class="carousel__nav next" aria-label="Ảnh tiếp theo">›</button>
+        <ul class="carousel__dots" role="tablist" aria-label="Chuyển ảnh"></ul>
+      </div>
+    </aside>
+  </div>
+</section>
+
+
 
     <!-- STEP 1: THÔNG TIN CHUYẾN ĐI (ẩn lúc đầu) -->
     <section id="plan" class="card" hidden>

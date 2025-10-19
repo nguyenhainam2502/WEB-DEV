@@ -1,0 +1,25 @@
+{
+  "cities": [
+    {
+      "id": "danang",
+      "name": "Đà Nẵng",
+      "avgCostPerDay": 900000,
+      "tags": ["bien", "am_thuc", "nghi_duong"],
+      "pois": [
+        {"name": "Bãi biển Mỹ Khê", "type": "sightseeing", "lat":16.0646, "lon":108.2428, "open":"05:00", "close":"19:00"},
+        {"name": "Cầu Rồng", "type": "sightseeing", "lat":16.0615, "lon":108.2273, "open":"00:00", "close":"23:59"},
+        {"name": "Bánh tráng cuốn thịt heo Trần", "type": "foodie", "lat":16.0737, "lon":108.2227, "open":"09:00", "close":"21:00"}
+      ]
+    },
+    {
+      "id": "dalat",
+      "name": "Đà Lạt",
+      "avgCostPerDay": 800000,
+      "tags": ["sinh_thai", "nghi_duong", "van_hoa"],
+      "pois": [
+        {"name":"Hồ Xuân Hương","type":"relax","lat":11.9416,"lon":108.4419,"open":"00:00","close":"23:59"},
+        {"name":"Chợ Đà Lạt","type":"foodie","lat":11.9465,"lon":108.4419,"open":"06:00","close":"22:00"}
+      ]
+    }
+  ]
+}
